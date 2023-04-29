@@ -20,6 +20,10 @@ namespace ariel
 
     public:
         Fraction(int num, int den);
+        Fraction(float float_num);
+        int getNumerator() const;
+        int getDenominator() const;
+
         Fraction operator+(const Fraction &other) const;
         Fraction operator+(float float_num);
 

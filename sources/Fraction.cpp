@@ -9,6 +9,12 @@
 using namespace ariel;
 using namespace std;
 
+int Fraction::getNumerator() const {
+    return numerator;
+}
+int Fraction::getDenominator() const {
+    return denominator;
+}
 void Fraction::simplify()
 {
     // We will simplify the fraction
@@ -34,6 +40,11 @@ Fraction::Fraction(int numer, int denom)
     numerator = numer;
     denominator = denom;
     simplify();
+}
+Fraction::Fraction(float float_num)
+//Constructor get float number and turn it to fraction
+{
+    *this = floatToFraction(float_num);
 }
 // Function to convert float number to fraction number
 Fraction floatToFraction(const float float_num)
@@ -294,6 +305,9 @@ istream &ariel::operator>>(istream &ins, Fraction &f)
 {
     int num, den;
     ins >> num >> den;
+    if (ins.fail()) {
+        throw runtime_error("Invalid input: expected two integers separated by a space");
+    }
     f.numerator = num;
     f.denominator = den;
     return ins;
