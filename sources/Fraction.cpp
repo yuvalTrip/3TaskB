@@ -9,12 +9,6 @@
 using namespace ariel;
 using namespace std;
 
-int Fraction::getNumerator() const {
-    return numerator;
-}
-int Fraction::getDenominator() const {
-    return denominator;
-}
 void Fraction::simplify()
 {
     // We will simplify the fraction
@@ -29,22 +23,45 @@ Fraction::Fraction(int numer, int denom)
 // If denominator is 0
     if (denom == 0)
     {
-        throw runtime_error("Denominator can not be zero!");
+        throw invalid_argument("Denominator can not be zero!");
     }
     // If denominator or numerator are not int
     if ((typeid(numer)) != typeid(int) || (typeid(denom)) != typeid(int))
     {
         throw runtime_error("Numbers need to be int!");
     }
+
 // If initialization correct
     numerator = numer;
     denominator = denom;
     simplify();
+    // Add this only because student test 2- case "Fraction comparisons"
+    //So the (-) in negative fraction will be on the numerator
+    if (denominator<0 )
+    {
+        numerator=numerator*(-1);
+        denominator=denominator*(-1);
+    }
 }
 Fraction::Fraction(float float_num)
 //Constructor get float number and turn it to fraction
 {
     *this = floatToFraction(float_num);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// Empty constructor
+Fraction::Fraction()
+{//defoltive values (for using in test2- "Input stream operator (>>)"
+    numerator = 1;
+    denominator = 1;
+}
+
+
+int Fraction::getNumerator() const {
+    return numerator;
+}
+int Fraction::getDenominator() const {
+    return denominator;
 }
 // Function to convert float number to fraction number
 Fraction floatToFraction(const float float_num)
@@ -142,7 +159,7 @@ Fraction Fraction::operator/(const Fraction &other) const
 // If denominator is 0 can not do this
     if (den == 0)
     {
-        throw invalid_argument("Error: Division by zero!");
+        throw runtime_error("Error: Division by zero!");
     }
     return Fraction(num, den);// Simplify
 }
@@ -305,8 +322,20 @@ istream &ariel::operator>>(istream &ins, Fraction &f)
 {
     int num, den;
     ins >> num >> den;
-    if (ins.fail()) {
+    if (ins.fail()) // If input is not 2 integers
+    {
         throw runtime_error("Invalid input: expected two integers separated by a space");
+    }
+    // If there is wrong initialization with denominator 0
+    if (den==0)
+    {
+        throw runtime_error("Invalid input: Denominator can not be 0!");
+    }
+    // For test case " Input and output operators tests"
+    if (den<0 )
+    {
+        num=num*(-1);
+        den=den*(-1);
     }
     f.numerator = num;
     f.denominator = den;

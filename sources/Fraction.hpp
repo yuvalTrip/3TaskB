@@ -19,8 +19,9 @@ namespace ariel
         int denominator;
 
     public:
-        Fraction(int num, int den);
-        Fraction(float float_num);
+        Fraction(int num, int den); //Constructor get numerator and denominator
+        Fraction(float float_num); // Constructor get float num and turn it to fraction
+        Fraction(); // Empty constructor
         int getNumerator() const;
         int getDenominator() const;
 

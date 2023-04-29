@@ -102,6 +102,7 @@ TEST_SUITE("Overloaded <= and >= operators tests") {
             CHECK_GE(frac7, frac8);
             CHECK_GE(frac9, frac9);
             CHECK_GE(frac10, frac11);
+            CHECK(frac4.getNumerator()==-1);
             CHECK_FALSE((frac4 >= frac1));
             CHECK_FALSE((frac1 >= frac3));
         }
