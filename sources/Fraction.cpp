@@ -68,19 +68,15 @@ Fraction floatToFraction(const float float_num)
 {// Global fraction (in use only in case of float-operator-Fraction i.e to operators outstide the Fraction class)
     //0.5555*1000=555.5, +0.5= 556 ->556
     //0.5552*1000=555.2, +0.5=555.7 ->555
-    int intF = static_cast<int>(float_num * 1000 + 0.5);
-
+    int intF = static_cast<int>(float_num * 1000 + (float_num>0?0.5:-0.5));// if it is negative number we will do -0.5, if it is positive we will do +0.5
     int den = 1000;
-
     return Fraction(intF, den);
 }
 // Function to convert float number to fraction number
-Fraction Fraction::floatToFraction(const float float_num)/////////////////////////////////////////////
+Fraction Fraction::floatToFraction(const float float_num)
 {
-    int intF = static_cast<int>(float_num * 1000 + 0.5);
-
+    int intF = static_cast<int>(float_num * 1000 + (float_num>0?0.5:-0.5));// if it is negative number we will do -0.5, if it is positive we will do +0.5
     int den = 1000;
-
     return Fraction(intF, den);
 }
 /// Overload + operator //
@@ -172,10 +168,7 @@ Fraction Fraction::operator/(const float float_num)
 // Float / Fraction
 Fraction ariel::operator/(const float float_num, const Fraction &frac)
 {
-    cout << "float_num" << float_num << endl;
     Fraction fracF = floatToFraction(float_num);// Convert float to Fraction
-    cout << "fracF" << fracF << endl;
-
     return fracF / frac;// Use the function I implemented of Fraction / Fraction
 }
 
