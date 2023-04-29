@@ -75,7 +75,7 @@ Fraction floatToFraction(const float float_num)
     return Fraction(intF, den);
 }
 // Function to convert float number to fraction number
-Fraction Fraction::floatToFraction(const float float_num)
+Fraction Fraction::floatToFraction(const float float_num)/////////////////////////////////////////////
 {
     int intF = static_cast<int>(float_num * 1000 + 0.5);
 
@@ -172,7 +172,10 @@ Fraction Fraction::operator/(const float float_num)
 // Float / Fraction
 Fraction ariel::operator/(const float float_num, const Fraction &frac)
 {
+    cout << "float_num" << float_num << endl;
     Fraction fracF = floatToFraction(float_num);// Convert float to Fraction
+    cout << "fracF" << fracF << endl;
+
     return fracF / frac;// Use the function I implemented of Fraction / Fraction
 }
 

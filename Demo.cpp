@@ -17,6 +17,12 @@ using namespace ariel;
 
 
 int main() {
+    float num=-0.8;
+    Fraction fra1=Fraction{3, 4};
+    Fraction frac2=Fraction{-16, 15};
+    Fraction ans=num/fra1;
+    cout << "ans" << ans << endl;
+
     Fraction a(5,3), b(14,21);
     cout << "a: " << a << "b: " << b << endl;
     cout << "a+b" << a+b << endl; 
