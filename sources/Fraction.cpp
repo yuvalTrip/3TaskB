@@ -177,9 +177,12 @@ Fraction ariel::operator/(const float float_num, const Fraction &frac)
 bool Fraction::operator==(const Fraction &other) const
 {
     Fraction frac1=Fraction(numerator,denominator); // Simplify first fraction
-    Fraction frac2=Fraction (other.numerator,other.denominator);// Simplify second fraction
+    //Fraction frac2=Fraction (other.numerator,other.denominator);// Simplify second fraction
     // Compare numerator with numerator and denom with denom AFTER SIMPLIFYING
-    return (frac1.numerator == frac2.numerator) && (frac1.denominator == frac2.denominator);
+//    return (frac1.numerator == frac2.numerator) && (frac1.denominator == frac2.denominator);
+    // Compare numerator with numerator and denom with denom AFTER SIMPLIFYING
+    return (frac1.numerator == other.numerator) && (frac1.denominator == other.denominator);
+
 }
 // Fraction == Float
 bool Fraction::operator==(const float float_num)
