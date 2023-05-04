@@ -46,7 +46,7 @@ namespace ariel
             {
                 throw overflow_error("Multipication overflow!");
             }
-            cout<<"num1*num2: "<<num1*num2<<endl;
+//            cout<<"num1*num2: "<<num1*num2<<endl;
 
             return(num1*num2);
         }
