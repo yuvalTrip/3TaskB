@@ -72,7 +72,7 @@ Fraction floatToFraction(const float float_num)
     int den = 1000;
     return Fraction(intF, den);
 }
-// Function to convert float number to fraction number
+// Function to convert float number to fraction number- in use of function of fraction and float
 Fraction Fraction::floatToFraction(const float float_num)
 {
     int intF = static_cast<int>(float_num * 1000 + (float_num>0?0.5:-0.5));// if it is negative number we will do -0.5, if it is positive we will do +0.5
@@ -85,9 +85,15 @@ Fraction Fraction::operator+(const Fraction &other) const
 {//the 'const' make sure that the double parameter is treated as a constant
     // and is not modified inside the function.
     // Machane Meshutaf :)
-    int num = (numerator * other.denominator) + (other.numerator * denominator);
-    int den = denominator * other.denominator;
+    int num = overflow_plus(overflow_mul(numerator,other.denominator),overflow_mul(other.numerator, denominator));
+//    cout<<"first: "<<num<<endl;
+    //in start before overflow i did only: int num = (numerator * other.denominator) + (other.numerator * denominator);
+    //in start before overflow i did only: int den = denominator * other.denominator;
+    int den = overflow_mul(denominator,other.denominator);
+//    cout<<"sec: "<<den<<endl;
+
     return Fraction(num, den);// Simplify
+
 }
 // Fraction + Float
 Fraction Fraction::operator+(const float float_num)
@@ -108,8 +114,12 @@ Fraction ariel::operator+(const float float_num, const Fraction &frac)
 Fraction Fraction::operator-(const Fraction &other) const
 {
     // Just the same as I did in operator + (but with -)
-    int num = (numerator * other.denominator) - (other.numerator * denominator);
-    int den = denominator * other.denominator;
+    int num = overflow_minus(overflow_mul(numerator,other.denominator),overflow_mul(other.numerator,denominator));
+    //in start before overflow i did only: int num = (numerator * other.denominator) - (other.numerator * denominator);
+    //in start before overflow i did only: int den = denominator * other.denominator;
+    int den = overflow_mul(denominator,other.denominator);
+
+//    overflow_minus(num,den);
     return Fraction(num, den);
 }
 // Fraction - Float
@@ -128,9 +138,13 @@ Fraction ariel::operator-(const float float_num, const Fraction &frac)
 // Fraction * Fraction
 Fraction Fraction::operator*(const Fraction &other) const
 {
-    int num = numerator * other.numerator;// Regular multiplication between numerators
+    //in start before overflow i did only:int num = numerator * other.numerator;// Regular multiplication between numerators
+    int num = overflow_mul(numerator,other.numerator);// Regular multiplication between numerators
+
     // Regular multiplication between denominators
-    int den = denominator * other.denominator;
+    //in start before overflow i did only:int den = denominator * other.denominator;
+    int den = overflow_mul(denominator ,other.denominator);
+
     return Fraction(num, den);// Simplify
 }
 // Fraction * Float
@@ -150,8 +164,10 @@ Fraction ariel::operator*(const float float_num, const Fraction &frac)
 // Fraction / Fraction
 Fraction Fraction::operator/(const Fraction &other) const
 {
-    int num = numerator * other.denominator;// Cross multiplication
-    int den = denominator * other.numerator;// Cross multiplication
+    //in start before overflow i did only:    int num = numerator * other.denominator;// Cross multiplication
+    int num = overflow_mul(numerator ,other.denominator);// Cross multiplication
+    //in start before overflow i did only:    int den = denominator * other.numerator;// Cross multiplication
+    int den = overflow_mul(denominator , other.numerator);// Cross multiplication
 // If denominator is 0 can not do this
     if (den == 0)
     {

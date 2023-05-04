@@ -17,6 +17,39 @@ namespace ariel
     {
         int numerator;
         int denominator;
+        static const int min_int=numeric_limits<int>::min();
+        static const int max_int= numeric_limits<int>::max();
+
+        static int overflow_minus(int num1, int num2){
+            if((num2<0 && num1>max_int+num2) || (num2>0 && num1<min_int+num2))
+            {
+                throw overflow_error("Minus overflow!");
+            }
+            return(num1-num2);
+        }
+
+        static int overflow_plus(int num1, int num2){
+//            cout<<"num1: "<<num1<<endl;
+//            cout<<"num2: "<<num2<<endl;
+            // Can not write num1+num2>max_int or num1+num2<min_int because it also can be overflow
+            if((num2>0 && num1>max_int-num2) || (num2<0 && num1<min_int-num2))
+            {
+                throw overflow_error("Plus overflow!");
+            }
+            return(num1+num2);
+        }
+        static int overflow_mul(int num1, int num2){
+//            cout<<"num1: "<<num1<<endl;
+//            cout<<"num2: "<<num2<<endl;
+
+            if((num2>0 && num1>max_int/num2) || (num2<0 && num1< max_int/num2))
+            {
+                throw overflow_error("Multipication overflow!");
+            }
+            cout<<"num1*num2: "<<num1*num2<<endl;
+
+            return(num1*num2);
+        }
 
     public:
         Fraction(int num, int den); //Constructor get numerator and denominator
